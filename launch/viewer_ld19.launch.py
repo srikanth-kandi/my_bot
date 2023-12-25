@@ -9,8 +9,8 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 def generate_launch_description():
   # RViZ2 settings
   rviz2_config = os.path.join(
-      get_package_share_directory('ldlidar_stl_ros2'),
-      'rviz2',
+      get_package_share_directory('my_bot'),
+      'config',
       'ldlidar.rviz'
   )
 
@@ -25,7 +25,7 @@ def generate_launch_description():
   #Include LDLidar launch file
   ldlidar_launch = IncludeLaunchDescription(
       launch_description_source=PythonLaunchDescriptionSource([
-          get_package_share_directory('ldlidar_stl_ros2'),
+          get_package_share_directory('my_bot'),
           '/launch/ld19.launch.py'
       ])
   )
