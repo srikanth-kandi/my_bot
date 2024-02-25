@@ -1,0 +1,24 @@
+Position of the robot 2 wheels back side and caster wheel facing me (l298n driver also facing me)
+
+IN1 - D9
+IN2 - D5
+IN3 - D6
+IN4 - D10
+
+OUT1 - Left Motor Red
+OUT2 - Left Motor Black
+OUT3 - Right Motor Red
+OUT4 - Right Motor Black
+
+Arduino Pins
+------------
+A4 - Left Motor Blue
+A5 - Left Motor Violet
+D2 - Right Motor Violet
+D3 - Right Motor Blue
+D5 - Motor Driver IN2
+D6 - Motor Driver IN3
+D9 - Motor Driver IN1
+D10 - Motor Driver IN4
+
+This pins configuration currently works both simulation and real robot

@@ -1,0 +1,28 @@
+Process to run slam_toolbox on simulator
+
+clone https://github.com/srikanth-kandi/my_bot.git to ~/dev_ws/src
+colcon build --symlink-install
+Install slam_toolbox using sudo apt install ros-foxy-slam-toolbox
+
+open 3 tabs in terminal
+
+tab1 - ~/dev_ws$ source install/setup.bash
+       ~/dev_ws$ ros2 launch my_bot launch_sim.launch.py world:=./src/my_bot/worlds/obstacles.world
+       
+tab2 - ~/dev_ws$ rviz2 -d src/my_bot/config/slam_bot.rviz
+
+tab3 - ~/dev_ws$ source install/setup.bash
+       ~/dev_ws$ ros2 launch my_bot online_async_launch.py params_file:=./src/my_bot/config/mapper_params_online_async.yaml use_sim_time:=true
+
+set the fixed frame to map only after running tab3 slam command
+
+For the Navigation
+
+~/dev_ws$ source install/setup.bash
+~/dev_ws$ ros2 launch my_bot navigation_launch.py use_sim_time:=true and specifiy the goal pose estimate to move the robot to destination
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+After creating map in slam to save that map open new tab in terminal and enter
+~$ mkdir maps
+~$ ros2 run nav2_map_server map_saver_cli -f maps/new_map_name

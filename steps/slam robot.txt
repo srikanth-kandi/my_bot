@@ -1,0 +1,39 @@
+Process to run SLAM on real robot
+
+clone https://github.com/srikanth-kandi/my_bot.git to ~/dev_ws/src
+colcon build --symlink-install
+Install slam_toolbox using sudo apt install ros-foxy-slam-toolbox
+
+open 2 tabs in terminal window via SSH
+
+tab1 - ~/robot_ws$ source install/setup.bash
+       ~/robot_ws$ ros2 launch my_bot launch_robot.launch.py
+       
+tab2 - ~/robot_ws$ source install/setup.bash
+       ~/robot_ws$ ros2 launch my_bot ld19.launch.py
+
+open new terminal window and open 4 tabs on laptop
+
+tab1 - ~/dev_ws$ source install/setup.bash
+       ~/dev_ws$ rviz2 -d ./src/my_bot/config/main.rviz
+       
+# turn on slam
+tab2 - ~/dev_ws$ source install/setup.bash
+       ~/dev_ws$ ros2 launch my_bot online_async_launch.py params_file:=./src/my_bot/config/mapper_params_online_async.yaml use_sim_time:=false
+       
+# turn on joystick
+tab3 - ~/dev_ws$ source install/setup.bash
+       ~/dev_ws$ ros2 launch my_bot joystick.launch.py
+
+set the fixed frame to map only after running tab2 slam command
+
+For the Navigation
+
+tab4 - ~/dev_ws$ source install/setup.bash
+       ~/dev_ws$ ros2 launch my_bot navigation_launch.py use_sim_time:=false # and specifiy the goal pose estimate to move the robot to destination
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+After creating map in slam to save that map open new tab in terminal and enter
+~$ mkdir maps
+~$ ros2 run nav2_map_server map_saver_cli -f maps/new_map_name
